@@ -26,12 +26,19 @@ def about():
     """Render the website's about page."""
     return render_template('about.html')
 
+
+@app.route('/secure-page/')
+@login_required
+def secure_page():
+    """Render the website's secure page."""
+    return render_template('secure-page.html')
+    
     
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if request.method == "POST" and form.validate_on_submit():
-        # change this to actually validate the entire form submission
+        # change this to actually validatoe the entire form submission
         # and not just one field
         username = form.username.data
         password = form.password.data
@@ -51,11 +58,12 @@ def login():
 
             # remember to flash a message to the user
             flash('Login Successful','success')
-            return redirect(url_for('home')) # they should be redirected to a secure-page route instead
+            return redirect(url_for('secure_page')) # they should be redirected to a secure-page route instead
         else:
             flash('Username or Password is incorrect','danger')
       
     return render_template("login.html", form=form)
+
 
 # user_loader callback. This callback is used to reload the user object from
 # the user ID stored in the session
