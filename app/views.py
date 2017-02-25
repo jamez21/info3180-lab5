@@ -39,7 +39,7 @@ def login():
     form = LoginForm()
     if request.method == "POST" and form.validate_on_submit():
         # change this to actually validatoe the entire form submission
-        # and not just one field
+        # and not just one field.
         username = form.username.data
         password = form.password.data
         
